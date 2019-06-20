@@ -39,12 +39,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => ['style' => 'text-align:center;'],
                 'format' => 'html',
                 'value' => function ($model) {
-            if ($model->logo != '') {
-                return Html::img(Yii::$app->homeUrl . '/uploads/images/thuonghieu/' . $model['logo'], ['width' => '40px', 'height: 20px']);
-            } else {
-                return Html::img(Yii::$app->homeUrl . '/uploads/images/thuonghieu/no-logo.png', ['width' => '40px', 'height: 20px']);
-            }
-        },
+                    if ($model->logo != '') {
+                        return Html::img(Yii::$app->homeUrl . '/uploads/images/thuonghieu/' . $model['logo'], ['width' => '40px', 'height: 20px']);
+                    } else {
+                        return Html::img(Yii::$app->homeUrl . '/uploads/images/thuonghieu/no-logo.png', ['width' => '40px', 'height: 20px']);
+                    }
+                },
             ],
             [
                 'attribute' => 'website',
@@ -59,8 +59,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'tinhtrang',
-                'label' => 'Kích hoạt',
+                'label' => 'Trạng thái',
                 'format' => 'raw',
+                'filter'    => ["" => "Tất cả", "1" => "Kích hoạt", "0"=>"Hủy kích hoạt"],
                 'value' => function($model) {
                     if ($model->tinhtrang == 1) {
                         return Html::img('@web/toandq/images/icon-ok.png', ['alt' => 'Đã kích hoạt', 'title' => 'Đã kích hoạt', 'width' => '20px']);
@@ -68,15 +69,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Html::img('@web/toandq/images/icon-danger.png', ['alt' => 'Đã hủy kích hoạt', 'title' => 'Đã hủy kích hoạt', 'width' => '20px']);
                     }
                 },
-                        'headerOptions' => ['style' => 'text-align:center;'],
-                        'contentOptions' => ['style' => 'text-align:center;'],
-                        'filterInputOptions' => [
-                            'class' => 'form-control',
-                            'placeholder' => '0 / 1'
-                        ],
-                    ],
-                    ['class' => 'yii\grid\ActionColumn'],
-                ],
-            ]);
-            ?>
+                'headerOptions' => ['style' => 'text-align:center;'],
+                'contentOptions' => ['style' => 'text-align:center;'],
+            ],
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]);
+    ?>
 </div>

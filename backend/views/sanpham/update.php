@@ -3,11 +3,11 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\SanphamDanhmuc */
+/* @var $model app\models\Sanpham */
 
-$this->title = $model->ten;
-$this->params['breadcrumbs'][] = ['label' => 'Danh mục sản phẩm', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->ten, 'url' => ['view', 'id' => $model->id]];
+$this->title = $model->ma_sanpham. ': '.$model->ten;
+$this->params['breadcrumbs'][] = ['label' => 'Sản phẩm', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->ma_sanpham, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Cập nhật';
 
 $this->registerCssFile(Yii::$app->homeUrl . '/toandq/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css');
@@ -25,7 +25,7 @@ $this->registerJs(
   })"
 );
 ?>
-<div class="sanpham-danhmuc-update">
+<div class="sanpham-update">
     <h3><?= Html::encode($this->title) ?></h3>
     <?= $this->render('_form', [
         'model' => $model,

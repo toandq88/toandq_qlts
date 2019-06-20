@@ -17,8 +17,8 @@ class SanphamDanhmucSearch extends SanphamDanhmuc
     public function rules()
     {
         return [
-            [['id', 'parents', 'thutu', 'tinhtrang'], 'integer'],
-            [['ten', 'ten_url', 'hinhanh', 'mota', 'meta_mota', 'meta_tukhoa'], 'safe'],
+            [['id', 'thutu', 'parents', 'tinhtrang'], 'integer'],
+            [['ten', 'ten_url', 'mota', 'meta_mota', 'meta_tukhoa'], 'safe'],
         ];
     }
 
@@ -64,12 +64,15 @@ class SanphamDanhmucSearch extends SanphamDanhmuc
             'tinhtrang' => $this->tinhtrang,
         ]);
 
+        //$query->joinWith('sanphamdanhmuc');
+        
         $query->andFilterWhere(['like', 'ten', $this->ten])
             ->andFilterWhere(['like', 'ten_url', $this->ten_url])
             ->andFilterWhere(['like', 'hinhanh', $this->hinhanh])
             ->andFilterWhere(['like', 'mota', $this->mota])
             ->andFilterWhere(['like', 'meta_mota', $this->meta_mota])
             ->andFilterWhere(['like', 'meta_tukhoa', $this->meta_tukhoa]);
+            //->andFilterWhere(['like', 'tb_sanpham_danhmuc.ten', $this->parents]);
 
         return $dataProvider;
     }

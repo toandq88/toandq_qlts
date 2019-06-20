@@ -8,6 +8,7 @@ use backend\models\SanphamDanhmucSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * SanphamDanhmucController implements the CRUD actions for SanphamDanhmuc model.
@@ -66,7 +67,25 @@ class SanphamDanhmucController extends Controller
     {
         $model = new SanphamDanhmuc();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            //upload logo
+            $imageName = date('Ymdhis', time()) . '-' . rand(111, 999);
+            $file = UploadedFile::getInstance($model, 'hinhanh');
+            if (is_dir('uploads/images/sanpham-danhmuc/') && isset($file->extension)) {
+                $file->saveAs('uploads/images/sanpham-danhmuc/' . $imageName . '.' . $file->extension);
+                //save the path in the db column
+                $model->hinhanh = $imageName . '.' . $file->extension;
+            }
+            //Xử lý tên trên URL
+            if($model -> ten_url != ''){
+                $model -> ten_url = Yii::$app->toandq->convertSpace2($model->ten_url);
+            }else{
+                $model -> ten_url = Yii::$app->toandq->convertSpace2($model->ten);
+            }
+            
+            $model->nguoitao = 'toandq';
+            $model->nguoisua = 'toandq';
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -85,8 +104,34 @@ class SanphamDanhmucController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $file_exist2 = $model->hinhanh;
+        
+        if ($model->load(Yii::$app->request->post())) {
+            $file2 = UploadedFile::getInstance($model, 'hinhanh');
+            if (is_dir('uploads/images/sanpham-danhmuc/') && isset($file2->extension) && $file_exist2 != null) {     //Nếu có upload hình ảnh mới và đã có ảnh cũ
+                $imageName = substr($file_exist2, 0, strlen($file_exist2) - 4);   //lấy tên file cũ
+                $directory = 'uploads\images\sanpham-danhmuc\\' . $file_exist2;        //đường dẫn chứa file cũ
+                @unlink($directory);                                             //Xóa file cũ
+                $file2->saveAs('uploads/images/sanpham-danhmuc/' . $imageName . '.' . $file2->extension);     //upload file mới
+                $model->hinhanh = $imageName . '.' . $file2->extension;         //lấy tên file mới để lưu db
+            } else if (is_dir('uploads/images/sanpham-danhmuc/') && isset($file2->extension) && $file_exist2 == null) {    //Nếu có upload hình ảnh mới và không có ảnh cũ
+                $imageName = date('Ymdhis', time());     //đặt tên cho file
+                $file2->saveAs('uploads/images/sanpham-danhmuc/' . $imageName . '.' . $file2->extension); //upload file mới
+                $model->hinhanh = $imageName . '.' . $file2->extension;         //lấy tên file mới để lưu db
+            } else {    //còn không làm gì thì giữ nguyên
+                $model->hinhanh = $file_exist2;
+            }
+            
+            //Xử lý tên trên URL
+            if($model -> ten_url != ''){
+                $model -> ten_url = Yii::$app->toandq->convertSpace2($model->ten_url);
+            }else{
+                $model -> ten_url = Yii::$app->toandq->convertSpace2($model->ten);
+            }
+            
+            $model->nguoisua = 'toandq2';
+            $model->ngaysua = date('Y-m-d H:i:s', time());
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

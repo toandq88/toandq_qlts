@@ -21,6 +21,9 @@ class AppAsset extends AssetBundle
         'toandq/dist/css/skins/_all-skins.min.css',
     ];
     public $js = [
+        //'toandq/bower_components/jquery/dist/jquery.min.js',
+        //'toandq/bower_components/jquery/dist/jquery-1.11.0.js',
+        'toandq/bower_components/bootstrap/dist/js/bootstrap.min.js',
         'toandq/dist/js/adminlte.min.js',
     ];
     public $depends = [

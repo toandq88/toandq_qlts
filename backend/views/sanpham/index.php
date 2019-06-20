@@ -4,15 +4,16 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use app\models\SanphamDanhmuc;
+use app\models\SanphamThuonghieu;
 
 /* @var $this yii\web\View */
-/* @var $searchModel backend\models\SanphamDanhmucSearch */
+/* @var $searchModel app\models\SanphamSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Danh mục sản phẩm';
+$this->title = 'Sản phẩm';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="sanpham-danhmuc-index" style="margin-top: 30px;">
+<div class="sanpham-index" style="margin-top: 30px;">
     <div class="row" style="margin-bottom: 10px;">
         <div class="col-lg-6">
             <h3><?= Html::encode($this->title) ?></h3>
@@ -24,21 +25,37 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?=
-    GridView::widget([
+    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+
+            //'id',
+            [
+                'attribute' => 'ma_sanpham',
+                'headerOptions' => ['style' => 'text-align:center;'],
+                'contentOptions' => ['style' => 'text-align:center;']
+            ],
             [
                 'attribute' => 'ten',
                 'headerOptions' => ['style' => 'text-align:center;'],
                 'contentOptions' => ['style' => 'text-align:left;']
             ],
+            //'ten_url:url',
             [
-                'attribute' => 'ten_url',
+                'attribute' => 'id_danhmuc',
+                'value' => 'danhmucsanpham.ten',
                 'headerOptions' => ['style' => 'text-align:center;'],
-                'contentOptions' => ['style' => 'text-align:left;']
+                'contentOptions' => ['style' => 'text-align:center;'],
+                'filter' => Html::activeDropDownList($searchModel, 'id_danhmuc', SanphamDanhmuc::getDacap(), ['prompt' => ' -- Chọn --', 'class' => 'form-control']),
+            ],
+            [
+                'attribute' => 'id_thuonghieu',
+                'value' => 'thuonghieusanpham.ten',
+                'headerOptions' => ['style' => 'text-align:center;'],
+                'contentOptions' => ['style' => 'text-align:center;'],
+                'filter' => Html::activeDropDownList($searchModel, 'id_thuonghieu', ArrayHelper::map(SanphamThuonghieu::find()->all(), 'id', 'ten'),['class'=>'form-control','prompt' => '- Chọn -']),
             ],
             [
                 'attribute' => 'hinhanh',
@@ -47,19 +64,44 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'html',
                 'value' => function ($model) {
                     if ($model->hinhanh != '') {
-                        return Html::img(Yii::$app->homeUrl . '/uploads/images/sanpham-danhmuc/' . $model['hinhanh'], ['width' => '40px', 'height: 20px']);
+                        return Html::img(Yii::$app->homeUrl . '/uploads/images/sanpham/' . $model['hinhanh'], ['width' => '40px', 'height: 20px']);
                     } else {
-                        return Html::img(Yii::$app->homeUrl . '/uploads/images/sanpham-danhmuc/no-logo.png', ['width' => '40px', 'height: 20px']);
+                        return Html::img(Yii::$app->homeUrl . '/uploads/images/sanpham/no-logo.png', ['width' => '40px', 'height: 20px']);
                     }
                 },
             ],
+            //'mota_ngan:ntext',
+            //'mota:ntext',
+            //'baohanh',
+            //'soluong',
             [
-                'attribute' => 'parents',
-                'value' => 'sanphamdanhmuc.ten',
-                'headerOptions' => ['style' => 'text-align:center; width: 15%;'],
-                'contentOptions' => ['style' => 'text-align:left;'],
-                'filter' => Html::activeDropDownList($searchModel, 'parents', ArrayHelper::map(SanphamDanhmuc::find()->where(['parents' => null])->all(), 'id', 'ten'),['class'=>'form-control','prompt' => '- Chọn -']),
+                'attribute' => 'giaban',
+                'headerOptions' => ['style' => 'text-align:center;'],
+                'contentOptions' => ['style' => 'text-align:right;'],
+                'value' => function($model) {
+                    return number_format($model->giaban);
+                },
             ],
+            [
+                'attribute' => 'giakhuyenmai',
+                'headerOptions' => ['style' => 'text-align:center;'],
+                'contentOptions' => ['style' => 'text-align:right;'],
+                'value' => function($model) {
+                    return number_format($model->giakhuyenmai);
+                },
+            ],
+            //'khuyenmai',
+            //'sp_banchay',
+            //'sp_noibat',
+            //'sp_moinhap',
+            //'meta_mota:ntext',
+            //'meta_tukhoa:ntext',
+            //'link_video',
+            //'video_width',
+            //'video_height',
+            //'file_huongdan',
+            //'pk_dikem',
+            //'thutu',
             [
                 'attribute' => 'tinhtrang',
                 'label' => 'Trạng thái',
@@ -75,11 +117,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ['style' => 'text-align:center;'],
                 'contentOptions' => ['style' => 'text-align:center;'],
             ],
-            //'mota:ntext',
-            //'meta_mota:ntext',
-            //'meta_tukhoa:ntext',
-            //'thutu',
+            //'nguoitao',
+            //'nguoisua',
+            //'ngaytao',
+            //'ngaysua',
+
             [
+                'class' => 'yii\grid\ActionColumn',
                 'class' => 'yii\grid\ActionColumn',
                 'contentOptions' => ['style' => 'text-align:center'],
                 'headerOptions' => ['style' => 'text-align:center'],
@@ -94,6 +138,5 @@ $this->params['breadcrumbs'][] = $this->title;
             //'prevPageLabel' => '<span class="glyphicon glyphicon-chevron-left"></span>',
             //'nextPageLabel' => '<span class="glyphicon glyphicon-chevron-right"></span>',
         ],
-    ]);
-    ?>
+    ]); ?>
 </div>

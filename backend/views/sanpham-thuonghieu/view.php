@@ -10,6 +10,8 @@ $this->title = $model->ten;
 $this->params['breadcrumbs'][] = ['label' => 'Thương hiệu', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
+
+$this->registerCss('table.detail-view th {width: 25%;} table.detail-view td { width: 75%;}')
 ?>
 <div class="sanpham-thuonghieu-view" style="margin-top: 30px">
     <div class="row" style="margin-bottom: 10px;">
@@ -61,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Yii::$app->homeUrl . '/uploads/images/thuonghieu/no-logo.png';
                     }
                 },
-                'format' => ['image', ['width' => '40%']],
+                'format' => ['image', ['width' => '200px']],
             ],
         ],
     ]) ?>

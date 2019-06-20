@@ -50,6 +50,11 @@ return [
             'rules' => [
             ],
         ],
+        
+        //Tự viết thêm cái này là các hàm dùng chung
+        'toandq' => [
+            'class' => 'backend\components\MyComponent'
+        ],
     ],
     'params' => $params,
 ];

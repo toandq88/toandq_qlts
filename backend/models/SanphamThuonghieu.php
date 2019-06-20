@@ -35,7 +35,7 @@ class SanphamThuonghieu extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ten', 'ten_url', 'tinhtrang', 'nguoitao', 'nguoisua'], 'required'],
+            [['ten', 'tinhtrang', 'nguoitao', 'nguoisua'], 'required'],
             [['thutu', 'tinhtrang'], 'integer'],
             [['ngaytao', 'ngaysua'], 'safe'],
             [['ten', 'ten_url', 'logo', 'website'], 'string', 'max' => 200],

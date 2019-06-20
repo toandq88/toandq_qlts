@@ -71,11 +71,16 @@ class SanphamThuonghieuController extends Controller
             //upload logo
             $imageName = date('Ymdhis', time()) . '-' . rand(111, 999);
             $file = UploadedFile::getInstance($model, 'logo');
-
             if (is_dir('uploads/images/thuonghieu/') && isset($file->extension)) {
                 $file->saveAs('uploads/images/thuonghieu/' . $imageName . '.' . $file->extension);
                 //save the path in the db column
                 $model->logo = $imageName . '.' . $file->extension;
+            }
+            //Xử lý tên trên URL
+            if($model -> ten_url != ''){
+                $model -> ten_url = Yii::$app->toandq->convertSpace2($model->ten_url);
+            }else{
+                $model -> ten_url = Yii::$app->toandq->convertSpace2($model->ten);
             }
             
             $model->nguoitao = 'toandq';
@@ -105,7 +110,6 @@ class SanphamThuonghieuController extends Controller
         $file_exist2 = $model->logo;
         
         if ($model->load(Yii::$app->request->post())) {
-            
             $file2 = UploadedFile::getInstance($model, 'logo');
             if (is_dir('uploads/images/thuonghieu/') && isset($file2->extension) && $file_exist2 != null) {     //Nếu có upload hình ảnh mới và đã có ảnh cũ
                 $imageName = substr($file_exist2, 0, strlen($file_exist2) - 4);   //lấy tên file cũ
@@ -117,11 +121,16 @@ class SanphamThuonghieuController extends Controller
                 $imageName = date('Ymdhis', time());     //đặt tên cho file
                 $file2->saveAs('uploads/images/thuonghieu/' . $imageName . '.' . $file2->extension); //upload file mới
                 $model->logo = $imageName . '.' . $file2->extension;         //lấy tên file mới để lưu db
-            } else {
+            } else {    //còn không làm gì thì giữ nguyên
                 $model->logo = $file_exist2;
             }
-            //còn không làm gì thì giữ nguyên
             
+            //Xử lý tên trên URL
+            if($model -> ten_url != ''){
+                $model -> ten_url = Yii::$app->toandq->convertSpace2($model->ten_url);
+            }else{
+                $model -> ten_url = Yii::$app->toandq->convertSpace2($model->ten);
+            }
             $model->nguoisua = 'toandq2';
             $model->ngaysua = date('Y-m-d H:i:s', time());
             $model->save();

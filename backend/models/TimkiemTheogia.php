@@ -40,9 +40,9 @@ class TimkiemTheogia extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'loai' => 'Loai',
-            'gia_tri1' => 'Gia Tri1',
-            'gia_tri2' => 'Gia Tri2',
+            'loai' => 'Loại',
+            'gia_tri1' => 'Giá trị 1',
+            'gia_tri2' => 'Giá trị 2',
         ];
     }
 }
