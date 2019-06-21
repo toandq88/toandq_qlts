@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\filters\AccessControl;
 
 /**
  * SanphamThuonghieuController implements the CRUD actions for SanphamThuonghieu model.
@@ -21,6 +22,20 @@ class SanphamThuonghieuController extends Controller
     public function behaviors()
     {
         return [
+            'as access' => [
+                'class' => AccessControl::className(), //AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['login', 'error'],
+                        'allow' => true,
+                    ],
+                    [
+                        'actions' => ['index', 'update', 'view', 'delete', 'create'], // add all actions to take guest to login page
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

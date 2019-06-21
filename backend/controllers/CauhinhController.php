@@ -8,6 +8,7 @@ use backend\models\CauhinhSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * CauhinhController implements the CRUD actions for Cauhinh model.
@@ -20,6 +21,20 @@ class CauhinhController extends Controller
     public function behaviors()
     {
         return [
+            'as access' => [
+                'class' => AccessControl::className(), //AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['login', 'error'],
+                        'allow' => true,
+                    ],
+                    [
+                        'actions' => ['index', 'update', 'view', 'delete', 'create'], // add all actions to take guest to login page
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

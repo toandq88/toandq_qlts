@@ -3,33 +3,33 @@
 namespace backend\controllers;
 
 use Yii;
-use app\models\TimkiemTheogia;
-use backend\models\TimkiemTheogiaSearch;
+use backend\models\VnXa;
+use backend\models\VnXaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 
 /**
- * TimkiemTheogiaController implements the CRUD actions for TimkiemTheogia model.
+ * VnXaController implements the CRUD actions for VnXa model.
  */
-class TimkiemTheogiaController extends Controller
+class VnXaController extends Controller
 {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function behaviors()
     {
         return [
-            'as access' => [
-                'class' => AccessControl::className(), //AccessControl::className(),
+            'access' => [
+                'class' => AccessControl::className(),
                 'rules' => [
-                    [
+                        [
                         'actions' => ['login', 'error'],
                         'allow' => true,
                     ],
-                    [
-                        'actions' => ['index', 'update', 'view', 'delete', 'create'], // add all actions to take guest to login page
+                        [
+                        'actions' => ['index', 'view','lists'], // add all actions to take guest to login page
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -45,12 +45,12 @@ class TimkiemTheogiaController extends Controller
     }
 
     /**
-     * Lists all TimkiemTheogia models.
+     * Lists all VnXa models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new TimkiemTheogiaSearch();
+        $searchModel = new VnXaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -60,8 +60,8 @@ class TimkiemTheogiaController extends Controller
     }
 
     /**
-     * Displays a single TimkiemTheogia model.
-     * @param integer $id
+     * Displays a single VnXa model.
+     * @param string $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -73,16 +73,16 @@ class TimkiemTheogiaController extends Controller
     }
 
     /**
-     * Creates a new TimkiemTheogia model.
+     * Creates a new VnXa model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new TimkiemTheogia();
+        $model = new VnXa();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->id_xa]);
         }
 
         return $this->render('create', [
@@ -91,9 +91,9 @@ class TimkiemTheogiaController extends Controller
     }
 
     /**
-     * Updates an existing TimkiemTheogia model.
+     * Updates an existing VnXa model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param string $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -102,7 +102,7 @@ class TimkiemTheogiaController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->id_xa]);
         }
 
         return $this->render('update', [
@@ -111,9 +111,9 @@ class TimkiemTheogiaController extends Controller
     }
 
     /**
-     * Deletes an existing TimkiemTheogia model.
+     * Deletes an existing VnXa model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param string $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -125,18 +125,31 @@ class TimkiemTheogiaController extends Controller
     }
 
     /**
-     * Finds the TimkiemTheogia model based on its primary key value.
+     * Finds the VnXa model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return TimkiemTheogia the loaded model
+     * @param string $id
+     * @return VnXa the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = TimkiemTheogia::findOne($id)) !== null) {
+        if (($model = VnXa::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+    
+    //Lấy danh sách các xã thuộc huyện khi thêm mới cầu
+    public function actionLists($id_huyen) {
+        $count = VnXa::find()->where(['id_huyen' => $id_huyen])->count();
+        $lists = VnXa::find()->where(['id_huyen' => $id_huyen])->all();
+        if ($count > 0) {
+            foreach($lists as $list){
+                echo "<option value='".$list->id_xa."'>".$list->loai." ".$list->ten."</option>";
+            }
+        } else {
+            echo "<option >--</option>";
+        }
     }
 }

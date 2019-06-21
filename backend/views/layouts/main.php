@@ -58,24 +58,28 @@ AppAsset::register($this);
                                     <!-- The user image in the navbar-->
                                     <img src="<?= Yii::$app->homeUrl ?>/toandq/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
                                     <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                    <span class="hidden-xs">Đinh Quốc Toản</span>
+                                    <span class="hidden-xs"><?= Yii::$app->user->identity->name ?></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- The user image in the menu -->
                                     <li class="user-header">
                                         <img src="<?= Yii::$app->homeUrl ?>/toandq/dist/img/user2-160x160.jpg" class="img-circle" alt="Ảnh">
                                         <p>
-                                            Đinh Quốc Toản - Web Developer
-                                            <small>Thành viên từ 01/6/2019</small>
+                                            <?= Yii::$app->user->identity->name ?> - Web Developer
+                                            <small>Thành viên từ <?=date('d/m/Y', Yii::$app->user->identity->created_at)?></small>
                                         </p>
                                     </li>
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-left">
-                                            <a href="#" class="btn btn-default btn-flat">Thông tin cá nhân</a>
+                                            <?=
+                                            Html::a('Thông tin cá nhân', ['/user/view?id=' . Yii::$app->user->identity->id], ['class' => 'btn btn-default btn-flat'])
+                                            ?>
                                         </div>
                                         <div class="pull-right">
-                                            <a href="#" class="btn btn-default btn-flat">Thoát</a>
+                                            <?=
+                                            Html::a('Thoát', ['/site/logout'], ['class' => 'btn btn-default btn-flat profile-link'])
+                                            ?>
                                         </div>
                                     </li>
                                 </ul>
@@ -176,7 +180,7 @@ AppAsset::register($this);
                             </a>
                         </li>
                         <li>
-                            <a href="<?= Yii::$app->homeUrl ?>thanhvien">
+                            <a href="<?= Yii::$app->homeUrl ?>user">
                                 <i class="fa fa-user"></i> <span>Thành viên</span>
                             </a>
                         </li>
@@ -189,9 +193,9 @@ AppAsset::register($this);
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="#"><i class="fa fa-circle-o"></i> Tỉnh / Thành phố</a></li>
-                                <li><a href="#"><i class="fa fa-circle-o"></i> Quận / Huyện</a></li>
-                                <li><a href="#"><i class="fa fa-circle-o"></i> Xã / Phường</a></li>
+                                <li><a href="<?= Yii::$app->homeUrl ?>vn-tinh"><i class="fa fa-circle-o"></i> Tỉnh / Thành phố</a></li>
+                                <li><a href="<?= Yii::$app->homeUrl ?>vn-huyen"><i class="fa fa-circle-o"></i> Quận / Huyện</a></li>
+                                <li><a href="<?= Yii::$app->homeUrl ?>vn-xa"><i class="fa fa-circle-o"></i> Xã / Phường</a></li>
                             </ul>
                         </li>
                     </ul>

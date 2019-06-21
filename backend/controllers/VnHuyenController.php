@@ -3,33 +3,32 @@
 namespace backend\controllers;
 
 use Yii;
-use app\models\TimkiemTheogia;
-use backend\models\TimkiemTheogiaSearch;
+use backend\models\VnHuyen;
+use backend\models\VnHuyenSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 
 /**
- * TimkiemTheogiaController implements the CRUD actions for TimkiemTheogia model.
+ * VnHuyenController implements the CRUD actions for VnHuyen model.
  */
-class TimkiemTheogiaController extends Controller
-{
+class VnHuyenController extends Controller {
+
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
-            'as access' => [
-                'class' => AccessControl::className(), //AccessControl::className(),
+            'access' => [
+                'class' => AccessControl::className(),
                 'rules' => [
                     [
                         'actions' => ['login', 'error'],
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['index', 'update', 'view', 'delete', 'create'], // add all actions to take guest to login page
+                        'actions' => ['index', 'view','lists'], // add all actions to take guest to login page
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -45,98 +44,106 @@ class TimkiemTheogiaController extends Controller
     }
 
     /**
-     * Lists all TimkiemTheogia models.
+     * Lists all VnHuyen models.
      * @return mixed
      */
-    public function actionIndex()
-    {
-        $searchModel = new TimkiemTheogiaSearch();
+    public function actionIndex() {
+        $searchModel = new VnHuyenSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
-     * Displays a single TimkiemTheogia model.
-     * @param integer $id
+     * Displays a single VnHuyen model.
+     * @param string $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+                    'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new TimkiemTheogia model.
+     * Creates a new VnHuyen model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
-        $model = new TimkiemTheogia();
+    public function actionCreate() {
+        $model = new VnHuyen();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->id_huyen]);
         }
 
         return $this->render('create', [
-            'model' => $model,
+                    'model' => $model,
         ]);
     }
 
     /**
-     * Updates an existing TimkiemTheogia model.
+     * Updates an existing VnHuyen model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param string $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->id_huyen]);
         }
 
         return $this->render('update', [
-            'model' => $model,
+                    'model' => $model,
         ]);
     }
 
     /**
-     * Deletes an existing TimkiemTheogia model.
+     * Deletes an existing VnHuyen model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param string $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the TimkiemTheogia model based on its primary key value.
+     * Finds the VnHuyen model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return TimkiemTheogia the loaded model
+     * @param string $id
+     * @return VnHuyen the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
-        if (($model = TimkiemTheogia::findOne($id)) !== null) {
+    protected function findModel($id) {
+        if (($model = VnHuyen::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+    
+    //Lấy danh sách các huyện thuộc tỉnh khi thêm mới cầu
+    public function actionLists($id_tinh) {
+        $count = VnHuyen::find()->where(['id_tinh' => $id_tinh])->count();
+        $lists = VnHuyen::find()->where(['id_tinh' => $id_tinh])->all();
+        if ($count > 0) {
+            foreach($lists as $list){
+                echo "<option value='".$list->id_huyen."'>".$list->loai." ".$list->ten."</option>";
+            }
+        } else {
+            echo "<option >--</option>";
+        }
+    }
+
 }

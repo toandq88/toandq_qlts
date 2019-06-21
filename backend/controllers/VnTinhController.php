@@ -3,33 +3,33 @@
 namespace backend\controllers;
 
 use Yii;
-use app\models\TimkiemTheogia;
-use backend\models\TimkiemTheogiaSearch;
+use backend\models\VnTinh;
+use backend\models\VnTinhSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 
 /**
- * TimkiemTheogiaController implements the CRUD actions for TimkiemTheogia model.
+ * VnTinhController implements the CRUD actions for VnTinh model.
  */
-class TimkiemTheogiaController extends Controller
+class VnTinhController extends Controller
 {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function behaviors()
     {
         return [
-            'as access' => [
-                'class' => AccessControl::className(), //AccessControl::className(),
+            'access' => [
+                'class' => AccessControl::className(),
                 'rules' => [
-                    [
+                        [
                         'actions' => ['login', 'error'],
                         'allow' => true,
                     ],
-                    [
-                        'actions' => ['index', 'update', 'view', 'delete', 'create'], // add all actions to take guest to login page
+                        [
+                        'actions' => ['index', 'view'], // add all actions to take guest to login page
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -45,12 +45,12 @@ class TimkiemTheogiaController extends Controller
     }
 
     /**
-     * Lists all TimkiemTheogia models.
+     * Lists all VnTinh models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new TimkiemTheogiaSearch();
+        $searchModel = new VnTinhSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -60,8 +60,8 @@ class TimkiemTheogiaController extends Controller
     }
 
     /**
-     * Displays a single TimkiemTheogia model.
-     * @param integer $id
+     * Displays a single VnTinh model.
+     * @param string $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -73,16 +73,16 @@ class TimkiemTheogiaController extends Controller
     }
 
     /**
-     * Creates a new TimkiemTheogia model.
+     * Creates a new VnTinh model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new TimkiemTheogia();
+        $model = new VnTinh();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->id_tinh]);
         }
 
         return $this->render('create', [
@@ -91,9 +91,9 @@ class TimkiemTheogiaController extends Controller
     }
 
     /**
-     * Updates an existing TimkiemTheogia model.
+     * Updates an existing VnTinh model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param string $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -102,7 +102,7 @@ class TimkiemTheogiaController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->id_tinh]);
         }
 
         return $this->render('update', [
@@ -111,9 +111,9 @@ class TimkiemTheogiaController extends Controller
     }
 
     /**
-     * Deletes an existing TimkiemTheogia model.
+     * Deletes an existing VnTinh model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param string $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -125,15 +125,15 @@ class TimkiemTheogiaController extends Controller
     }
 
     /**
-     * Finds the TimkiemTheogia model based on its primary key value.
+     * Finds the VnTinh model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return TimkiemTheogia the loaded model
+     * @param string $id
+     * @return VnTinh the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = TimkiemTheogia::findOne($id)) !== null) {
+        if (($model = VnTinh::findOne($id)) !== null) {
             return $model;
         }
 

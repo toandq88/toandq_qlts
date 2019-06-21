@@ -58,6 +58,7 @@ class Sanpham extends \yii\db\ActiveRecord {
             [['id_danhmuc', 'id_thuonghieu', 'soluong', 'giaban', 'giakhuyenmai', 'baohanh', 'sp_banchay', 'sp_noibat', 'sp_moinhap', 'video_width', 'video_height', 'thutu', 'tinhtrang'], 'integer'],
             [['mota_ngan', 'mota', 'meta_mota', 'meta_tukhoa'], 'string'],
             [['ngaytao', 'ngaysua'], 'safe'],
+            [['ma_sanpham'], 'unique', 'message'=> 'Mã sản phẩm này đã tồn tại. Bạn vui lòng chọn mã khác.'],
             [['ma_sanpham', 'nguoitao', 'nguoisua'], 'string', 'max' => 100],
             [['ten', 'ten_url', 'hinhanh', 'khuyenmai', 'link_video', 'file_huongdan', 'pk_dikem'], 'string', 'max' => 200],
         ];

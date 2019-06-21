@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 $this->registerCss('table.detail-view th {width: 25%;} table.detail-view td { width: 75%;}')
 
 ?>
-<div class="sanpham-view"style="margin-top: 30px">
+<div class="sanpham-view" style="margin-top: 30px">
     <div class="row" style="margin-bottom: 10px;">
         <div class="col-lg-9">
             <h3><?= Html::encode($this->title) ?></h3>
