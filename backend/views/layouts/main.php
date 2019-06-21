@@ -65,7 +65,11 @@ AppAsset::register($this);
                                         <img src="<?= Yii::$app->homeUrl ?>/toandq/dist/img/user2-160x160.jpg" class="img-circle" alt="Ảnh">
                                         <p>
                                             <?= Yii::$app->user->identity->name ?> - Web Developer
+<<<<<<< HEAD
                                             <small>Thành viên từ <?= date('d/m/Y', Yii::$app->user->identity->created_at) ?></small>
+=======
+                                            <small>Thành viên từ <?=date('d/m/Y', Yii::$app->user->identity->created_at)?></small>
+>>>>>>> 0f1b33f891989a979383d12fdd28484f56361e02
                                         </p>
                                     </li>
                                     <!-- Menu Footer-->
@@ -177,7 +181,28 @@ AppAsset::register($this);
                                 <li><a href="<?= Yii::$app->homeUrl ?>"><i class="fa fa-bars"></i> Báo cáo 2</a></li>
                             </ul>
                         </li>
+<<<<<<< HEAD
 
+=======
+                        <li>
+                            <a href="<?= Yii::$app->homeUrl ?>quangcao">
+                                <i class="fa fa-newspaper-o"></i> <span>Quảng cáo</span>
+                                <span class="pull-right-container">
+                                    <small class="label pull-right bg-green">new</small>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?= Yii::$app->homeUrl ?>lienhe">
+                                <i class="fa fa-sticky-note"></i> <span>Liên hệ</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?= Yii::$app->homeUrl ?>user">
+                                <i class="fa fa-user"></i> <span>Thành viên</span>
+                            </a>
+                        </li>
+>>>>>>> 0f1b33f891989a979383d12fdd28484f56361e02
                         <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-navicon"></i> <span>Thông tin chung</span>
@@ -186,6 +211,7 @@ AppAsset::register($this);
                                 </span>
                             </a>
                             <ul class="treeview-menu">
+<<<<<<< HEAD
                                 <li><a href="<?= Yii::$app->homeUrl ?>cauhinh">
                                         <i class="fa fa-cog"></i><span>Cấu hình</span>
                                     </a>
@@ -206,6 +232,11 @@ AppAsset::register($this);
                                         <li><a href="<?= Yii::$app->homeUrl ?>vn-xa"><i class="fa fa-list-alt"></i> Xã / Phường</a></li>
                                     </ul>
                                 </li>
+=======
+                                <li><a href="<?= Yii::$app->homeUrl ?>vn-tinh"><i class="fa fa-circle-o"></i> Tỉnh / Thành phố</a></li>
+                                <li><a href="<?= Yii::$app->homeUrl ?>vn-huyen"><i class="fa fa-circle-o"></i> Quận / Huyện</a></li>
+                                <li><a href="<?= Yii::$app->homeUrl ?>vn-xa"><i class="fa fa-circle-o"></i> Xã / Phường</a></li>
+>>>>>>> 0f1b33f891989a979383d12fdd28484f56361e02
                             </ul>
                         </li>
                     </ul>
