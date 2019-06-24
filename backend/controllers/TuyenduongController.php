@@ -29,11 +29,7 @@ class TuyenduongController extends Controller
                         'allow' => true,
                     ],
                     [
-<<<<<<< HEAD:backend/controllers/TuyenduongController.php
                         'actions' => ['create', 'index', 'update', 'view', 'delete'], // add all actions to take guest to login page
-=======
-                        'actions' => ['index', 'update', 'view', 'delete', 'create'], // add all actions to take guest to login page
->>>>>>> 0f1b33f891989a979383d12fdd28484f56361e02:backend/controllers/CauhinhController.php
                         'allow' => true,
                         'roles' => ['@'],
                     ],
