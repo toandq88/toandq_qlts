@@ -109,6 +109,9 @@ AppAsset::register($this);
                             <a href="<?= Yii::$app->homeUrl ?>tuyenduong">
                                 <i class="fa fa-road"></i>
                                 <span>Tuyến đường</span>
+                                <span class="pull-right-container">
+                                    <small class="label pull-right bg-green"> 04 </small>
+                                </span>
                             </a>
                         </li>
                         <li class="treeview">
@@ -116,6 +119,7 @@ AppAsset::register($this);
                                 <i class="fa fa-list"></i>
                                 <span>Hạ tầng đường bộ</span>
                                 <span class="pull-right-container">
+                                    <small class="label pull-right bg-green"> 28 </small>
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </span>
                             </a>
@@ -155,6 +159,7 @@ AppAsset::register($this);
                                 <i class="fa fa-slack"></i>
                                 <span>Tài sản khác</span>
                                 <span class="pull-right-container">
+                                    <small class="label pull-right bg-green"> 03 </small>
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </span>
                             </a>
@@ -173,27 +178,9 @@ AppAsset::register($this);
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="<?= Yii::$app->homeUrl ?>"><i class="fa fa-bars"></i> Báo cáo 1</a></li>
+                                <li><a href="<?= Yii::$app->homeUrl ?>tuyenduong/export"><i class="fa fa-bars"></i> Danh sách Tuyến đường</a></li>
                                 <li><a href="<?= Yii::$app->homeUrl ?>"><i class="fa fa-bars"></i> Báo cáo 2</a></li>
                             </ul>
-                        </li>         
-                        <li>
-                            <a href="<?= Yii::$app->homeUrl ?>quangcao">
-                                <i class="fa fa-newspaper-o"></i> <span>Quảng cáo</span>
-                                <span class="pull-right-container">
-                                    <small class="label pull-right bg-green">new</small>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= Yii::$app->homeUrl ?>lienhe">
-                                <i class="fa fa-sticky-note"></i> <span>Liên hệ</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= Yii::$app->homeUrl ?>user">
-                                <i class="fa fa-user"></i> <span>Thành viên</span>
-                            </a>
                         </li>
                         <li class="treeview">
                             <a href="#">
@@ -203,14 +190,21 @@ AppAsset::register($this);
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="<?= Yii::$app->homeUrl ?>cauhinh">
+                                <!-- li><a href="<?= Yii::$app->homeUrl ?>cauhinh">
                                         <i class="fa fa-cog"></i><span>Cấu hình</span>
                                     </a>
-                                </li>
+                                </li -->
                                 <li><a href="<?= Yii::$app->homeUrl ?>donvi"><i class="fa fa-users"></i> Đơn vị</a></li>
-                                <li><a href="<?= Yii::$app->homeUrl ?>user"><i class="fa fa-user"></i> Người sử dụng</a></li>
-                                <li><a href="<?= Yii::$app->homeUrl ?>mucdokiemtra"><i class="fa fa-toggle-right"></i> Mức độ kiểm tra</a></li>
-                                <li><a href="<?= Yii::$app->homeUrl ?>mucdobaotri"><i class="fa fa-toggle-down"></i> Mức độ bảo trì</a></li>
+                                <li><a href="<?= Yii::$app->homeUrl ?>user"><i class="fa fa-user"></i> Người sử dụng 
+                                        <span class="pull-right-container">
+                                            <small class="label pull-right bg-green"> 88 </small>
+                                        </span></a>
+                                </li>
+                                <li><a href="<?= Yii::$app->homeUrl ?>mucdo-kiemtra"><i class="fa fa-toggle-right"></i> Mức độ kiểm tra</a></li>
+                                <li><a href="<?= Yii::$app->homeUrl ?>mucdo-baotri"><i class="fa fa-toggle-down"></i> Mức độ bảo trì</a></li>
+                                <li><a href="<?= Yii::$app->homeUrl ?>loai-landuong"><i class="fa fa-hourglass-end"></i> Loại làn đường</a></li>
+                                <li><a href="<?= Yii::$app->homeUrl ?>loai-nenduong"><i class="fa fa-hourglass-half"></i> Loại nền đường</a></li>
+                                <li><a href="<?= Yii::$app->homeUrl ?>bienbao-loai"><i class="fa fa fa-area-chart"></i> Loại biển báo</a></li>
                                 <li class="treeview">
                                     <a href="#"><i class="fa fa-th-list"></i> Địa giới hành chính
                                         <span class="pull-right-container">
@@ -223,9 +217,6 @@ AppAsset::register($this);
                                         <li><a href="<?= Yii::$app->homeUrl ?>vn-xa"><i class="fa fa-list-alt"></i> Xã / Phường</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="<?= Yii::$app->homeUrl ?>vn-tinh"><i class="fa fa-circle-o"></i> Tỉnh / Thành phố</a></li>
-                                <li><a href="<?= Yii::$app->homeUrl ?>vn-huyen"><i class="fa fa-circle-o"></i> Quận / Huyện</a></li>
-                                <li><a href="<?= Yii::$app->homeUrl ?>vn-xa"><i class="fa fa-circle-o"></i> Xã / Phường</a></li>
                             </ul>
                         </li>
                     </ul>

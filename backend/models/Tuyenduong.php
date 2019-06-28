@@ -3,6 +3,12 @@
 namespace app\models;
 
 use Yii;
+use app\models\Donvi;
+use backend\models\VnTinh;
+use backend\models\VnHuyen;
+use backend\models\VnXa;
+use app\models\LoaiNenduong;
+use app\models\LoaiLanduong;
 
 /**
  * This is the model class for table "tb_tuyenduong".
@@ -24,8 +30,9 @@ use Yii;
  * @property string $vidocuoi
  * @property string $kinhdocuoi
  * @property int $loailanduong
- * @property int $tinh
- * @property int $huyen
+ * @property string $id_tinh
+ * @property string $id_huyen
+ * @property string $id_xa
  * @property string $dieuchinhcotkm
  * @property double $chieudaitheocotkm
  * @property double $chieudaithucte
@@ -60,27 +67,26 @@ use Yii;
  * @property string $nguoisua
  * @property string $ngaysua
  */
-class Tuyenduong extends \yii\db\ActiveRecord
-{
+class Tuyenduong extends \yii\db\ActiveRecord {
+
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'tb_tuyenduong';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['matuyenduong', 'tenduong', 'tentuyen', 'nhanhdanso', 'capduong', 'donviquanly', 'coquanquanly', 'tukmchinh', 'tukmle', 'denkmchinh', 'denkmle', 'vidodau', 'kinhdodau', 'vidocuoi', 'kinhdocuoi', 'loailanduong', 'tinh', 'huyen', 'dieuchinhcotkm', 'chieudaitheocotkm', 'chieudaithucte', 'namhoanthanhxaydung', 'nambatdaukhaithac', 'hanhlangduongbo', 'loaicongtrinhduongbo', 'solanxecogioi', 'chieuronglanxecogioi', 'loaimatduonglanxecogioi', 'loaimatduonglanxethoso', 'chieurongphanduongxechay', 'chieurongmatduong', 'leduong', 'chieuronglegiaco', 'loaiketcaulegiaco', 'chieuronglekhonggiaco', 'viahe', 'chieurongviahe', 'loaiviahe', 'chieurongthoatnuoc', 'tocdothietke', 'tocdotoidacaclan', 'tocdotoithieucaclan', 'loaidiahinh', 'nhietdo', 'luongmuatrungbinh', 'loainenduong', 'anh_daidien', 'nguoitao', 'ngaytao', 'nguoisua', 'ngaysua'], 'required'],
-            [['donviquanly', 'coquanquanly', 'tukmchinh', 'tukmle', 'denkmchinh', 'denkmle', 'loailanduong', 'tinh', 'huyen', 'solanxecogioi', 'loainenduong'], 'integer'],
+            [['matuyenduong', 'tenduong', 'tentuyen', 'nhanhdanso', 'capduong', 'donviquanly', 'coquanquanly', 'tukmchinh', 'tukmle', 'denkmchinh', 'denkmle', 'vidodau', 'kinhdodau', 'vidocuoi', 'kinhdocuoi', 'loailanduong', 'id_tinh', 'id_huyen', 'id_xa', 'dieuchinhcotkm', 'chieudaitheocotkm', 'chieudaithucte', 'namhoanthanhxaydung', 'nambatdaukhaithac', 'hanhlangduongbo', 'loaicongtrinhduongbo', 'solanxecogioi', 'chieuronglanxecogioi', 'loaimatduonglanxecogioi', 'loaimatduonglanxethoso', 'chieurongphanduongxechay', 'chieurongmatduong', 'leduong', 'chieuronglegiaco', 'loaiketcaulegiaco', 'chieuronglekhonggiaco', 'viahe', 'chieurongviahe', 'loaiviahe', 'chieurongthoatnuoc', 'tocdothietke', 'tocdotoidacaclan', 'tocdotoithieucaclan', 'loaidiahinh', 'nhietdo', 'luongmuatrungbinh', 'loainenduong', 'nguoitao', 'ngaytao', 'nguoisua', 'ngaysua'], 'required'],
+            [['donviquanly', 'coquanquanly', 'tukmchinh', 'tukmle', 'denkmchinh', 'denkmle', 'loailanduong', 'solanxecogioi', 'loainenduong'], 'integer'],
             [['dieuchinhcotkm', 'namhoanthanhxaydung', 'nambatdaukhaithac', 'ngaytao', 'ngaysua'], 'safe'],
             [['chieudaitheocotkm', 'chieudaithucte', 'hanhlangduongbo', 'chieuronglanxecogioi', 'chieurongphanduongxechay', 'chieurongmatduong', 'chieuronglegiaco', 'chieuronglekhonggiaco', 'chieurongviahe', 'chieurongthoatnuoc', 'tocdothietke', 'tocdotoidacaclan', 'tocdotoithieucaclan', 'nhietdo', 'luongmuatrungbinh'], 'number'],
             [['matuyenduong', 'vidodau', 'kinhdodau', 'vidocuoi', 'kinhdocuoi'], 'string', 'max' => 20],
+            [['id_tinh', 'id_huyen', 'id_xa'], 'string', 'max' => 5],
             [['tenduong', 'tentuyen', 'nhanhdanso', 'capduong', 'loaicongtrinhduongbo', 'loaimatduonglanxecogioi', 'loaimatduonglanxethoso', 'leduong', 'loaiketcaulegiaco', 'viahe', 'loaiviahe', 'loaidiahinh', 'anh_daidien', 'nguoitao', 'nguoisua'], 'string', 'max' => 255],
         ];
     }
@@ -88,8 +94,7 @@ class Tuyenduong extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'matuyenduong' => 'Mã',
@@ -108,9 +113,10 @@ class Tuyenduong extends \yii\db\ActiveRecord
             'vidocuoi' => 'Vĩ độ cuối',
             'kinhdocuoi' => 'Kinh độ cuối',
             'loailanduong' => 'Loại làn đường',
-            'tinh' => 'Tỉnh',
-            'huyen' => 'Huyện',
-            'dieuchinhcotkm' => 'Điều chỉnh cột km',
+            'id_tinh' => 'Tỉnh',
+            'id_huyen' => 'Huyện',
+            'id_xa' => 'Xã',
+            'dieuchinhcotkm' => 'Thời điểm điều chỉnh cột km',
             'chieudaitheocotkm' => 'Chiều dài theo cột km',
             'chieudaithucte' => 'Chiều dài thực tế',
             'namhoanthanhxaydung' => 'Năm hoàn thành',
@@ -144,5 +150,40 @@ class Tuyenduong extends \yii\db\ActiveRecord
             'nguoisua' => 'Người sửa',
             'ngaysua' => 'Ngày sửa',
         ];
+    }
+
+    //Lấy tên đơn vị thực hiện quản lý tuyến đường
+    public function getDonvi() {
+        return $this->hasOne(Donvi::className(), ['id_donvi' => 'donviquanly']);
+    }
+
+    //Lấy tên cơ quan quản lý tuyến đường
+    public function getCoquan() {
+        return $this->hasOne(Donvi::className(), ['id_donvi' => 'coquanquanly']);
+    }
+
+    //Thuộc tỉnh
+    public function getVntinh() {
+        return $this->hasOne(vnTinh::className(), ['id_tinh' => 'id_tinh']);
+    }
+
+    //Thuộc huyện
+    public function getVnhuyen() {
+        return $this->hasOne(VnHuyen::className(), ['id_huyen' => 'id_huyen']);
+    }
+
+    //Thuộc xã
+    public function getVnxa() {
+        return $this->hasOne(VnXa::className(), ['id_xa' => 'id_xa']);
+    }
+
+    //Loại nền đường
+    public function getNenduong() {
+        return $this->hasOne(LoaiNenduong::className(), ['id' => 'loainenduong']);
+    }
+    
+    //Loại làn đường
+    public function getLanduong() {
+        return $this->hasOne(LoaiLanduong::className(), ['id' => 'loainenduong']);
     }
 }

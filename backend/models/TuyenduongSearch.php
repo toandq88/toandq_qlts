@@ -17,8 +17,8 @@ class TuyenduongSearch extends Tuyenduong
     public function rules()
     {
         return [
-            [['id', 'donviquanly', 'coquanquanly', 'tukmchinh', 'tukmle', 'denkmchinh', 'denkmle', 'loailanduong', 'tinh', 'huyen', 'solanxecogioi', 'loainenduong'], 'integer'],
-            [['matuyenduong', 'tenduong', 'tentuyen', 'nhanhdanso', 'capduong', 'vidodau', 'kinhdodau', 'vidocuoi', 'kinhdocuoi', 'dieuchinhcotkm', 'namhoanthanhxaydung', 'nambatdaukhaithac', 'loaicongtrinhduongbo', 'loaimatduonglanxecogioi', 'loaimatduonglanxethoso', 'leduong', 'loaiketcaulegiaco', 'viahe', 'loaiviahe', 'loaidiahinh', 'anh_daidien', 'nguoitao', 'ngaytao', 'nguoisua', 'ngaysua'], 'safe'],
+            [['id', 'donviquanly', 'coquanquanly', 'tukmchinh', 'tukmle', 'denkmchinh', 'denkmle', 'loailanduong', 'solanxecogioi', 'loainenduong'], 'integer'],
+            [['matuyenduong', 'tenduong', 'tentuyen', 'nhanhdanso', 'capduong', 'vidodau', 'kinhdodau', 'vidocuoi', 'kinhdocuoi', 'dieuchinhcotkm', 'namhoanthanhxaydung', 'nambatdaukhaithac', 'loaicongtrinhduongbo', 'loaimatduonglanxecogioi', 'loaimatduonglanxethoso', 'leduong', 'loaiketcaulegiaco', 'viahe', 'loaiviahe', 'loaidiahinh', 'anh_daidien', 'nguoitao', 'ngaytao', 'nguoisua', 'ngaysua', 'id_tinh', 'id_huyen', 'id_xa'], 'safe'],
             [['chieudaitheocotkm', 'chieudaithucte', 'hanhlangduongbo', 'chieuronglanxecogioi', 'chieurongphanduongxechay', 'chieurongmatduong', 'chieuronglegiaco', 'chieuronglekhonggiaco', 'chieurongviahe', 'chieurongthoatnuoc', 'tocdothietke', 'tocdotoidacaclan', 'tocdotoithieucaclan', 'nhietdo', 'luongmuatrungbinh'], 'number'],
         ];
     }
@@ -67,8 +67,9 @@ class TuyenduongSearch extends Tuyenduong
             'denkmchinh' => $this->denkmchinh,
             'denkmle' => $this->denkmle,
             'loailanduong' => $this->loailanduong,
-            'tinh' => $this->tinh,
-            'huyen' => $this->huyen,
+            'id_tinh' => $this->id_tinh,
+            'id_huyen' => $this->id_huyen,
+            'id_xa' => $this->id_xa,
             'dieuchinhcotkm' => $this->dieuchinhcotkm,
             'chieudaitheocotkm' => $this->chieudaitheocotkm,
             'chieudaithucte' => $this->chieudaithucte,
