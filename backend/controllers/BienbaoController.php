@@ -8,6 +8,7 @@ use backend\models\BienbaoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * BienbaoController implements the CRUD actions for Bienbao model.
@@ -20,6 +21,20 @@ class BienbaoController extends Controller
     public function behaviors()
     {
         return [
+            'as access' => [
+                'class' => AccessControl::className(), //AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['login', 'error'],
+                        'allow' => true,
+                    ],
+                    [
+                        'actions' => ['create', 'index', 'update', 'view', 'delete', 'export'], // add all actions to take guest to login page
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -132,5 +147,16 @@ class BienbaoController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+    
+    public function actionExport()
+    {
+        $searchModel = new BienbaoSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('export', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 }

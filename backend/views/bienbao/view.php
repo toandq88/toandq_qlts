@@ -133,6 +133,39 @@ $this->registerCss(".chudam { font-weight: bolder; }");
                 <div class="col-lg-4" style="margin-top: 15px">Tên tuyến: <span class="chudam"><?= $model->bocuc_tentuyen ?></span></div> 
             </div>
         </div>
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Lịch sử kiểm tra</h3>
+                <!-- tools box -->
+                <div class="pull-right box-tools">
+                    <button type="button" class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+                <!-- /. tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body pad" style="font-size: 12pt;">
+                
+            </div>
+        </div>
+        
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Lịch sử bảo trì, sửa chữa</h3>
+                <!-- tools box -->
+                <div class="pull-right box-tools">
+                    <button type="button" class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+                <!-- /. tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body pad" style="font-size: 12pt;">
+                
+            </div>
+        </div>
         
         <div class="box">
             <div class="box-header">

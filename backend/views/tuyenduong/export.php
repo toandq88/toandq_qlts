@@ -12,15 +12,13 @@ $this->title = 'Tuyến đường';
 $this->params['breadcrumbs'][] = $this->title;
 
 $this->registerCss("#w0-cols{display: block;}");
-$this->registerJs(
-        "$('#w0-cols').on('click', function() { $('.kv-checkbox-list').toggle(); });"
-);
+$this->registerJs("$('#w0-cols').on('click', function() { $('.kv-checkbox-list').toggle(); });");
 ?>
 <div class="tuyenduong-index" style="margin-top: 30px;">
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <div class="row">
-        <div class="col-lg-6 benphai">
+        <div class="col-lg-6">
             <h3><?= Html::encode($this->title) ?></h3>
         </div>
         <div class="col-lg-6">

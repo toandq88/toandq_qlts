@@ -178,7 +178,8 @@ AppAsset::register($this);
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="<?= Yii::$app->homeUrl ?>tuyenduong/export"><i class="fa fa-bars"></i> Danh sách Tuyến đường</a></li>
+                                <li><a href="<?= Yii::$app->homeUrl ?>"><i class="fa fa-bars"></i> Tuyến đường</a></li>
+                                <li><a href="<?= Yii::$app->homeUrl ?>"><i class="fa fa-bars"></i> Biển báo</a></li>
                                 <li><a href="<?= Yii::$app->homeUrl ?>"><i class="fa fa-bars"></i> Báo cáo 2</a></li>
                             </ul>
                         </li>
