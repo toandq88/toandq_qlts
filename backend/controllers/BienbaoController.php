@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use kartik\mpdf\Pdf;
+
 
 /**
  * BienbaoController implements the CRUD actions for Bienbao model.
@@ -29,7 +31,7 @@ class BienbaoController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['create', 'index', 'update', 'view', 'delete', 'export'], // add all actions to take guest to login page
+                        'actions' => ['create', 'index', 'update', 'view', 'delete', 'export', 'pdf'], // add all actions to take guest to login page
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -158,5 +160,44 @@ class BienbaoController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+    
+    //Export to PDF
+    public function actionPdf($id) {
+        $pdf_content = $this->renderPartial('view-pdf', [
+                    'model' => $this->findModel($id),
+        ]);
+
+        // setup kartik\mpdf\Pdf component
+        $pdf = new Pdf([
+            // set to use core fonts only
+            'mode' => Pdf::MODE_UTF8, 
+            // A4 paper format
+            'format' => Pdf::FORMAT_A4, 
+            // portrait orientation
+            'orientation' => Pdf::ORIENT_PORTRAIT, 
+            // stream to browser inline
+            'destination' => Pdf::DEST_BROWSER, 
+            // your html content input
+            'content' => $pdf_content,  
+            'marginLeft' => 20,
+            'filename' => 'Thong-tin-bien-bao.pdf',
+            // format content from your own css file if needed or use the
+            // enhanced bootstrap css built by Krajee for mPDF formatting 
+            'cssFile' => '@vendor/kartik-v/yii2-mpdf/src/assets/kv-mpdf-bootstrap.min.css',
+            // any css to be embedded if required
+            //'cssInline' => '.kv-heading-1{font-size:18px}', 
+             // set mPDF properties on the fly
+            'options' => ['title' => 'Thông tin biển báo'],
+             // call mPDF methods on the fly
+            'methods' => [ 
+                'SetHeader'=>['Thông tin biển báo'], 
+                'SetFooter'=>['{PAGENO}'],
+                'SetTitle'=>['Xuất bản Thông tin biển báo'], 
+            ]
+        ]);
+        
+        // return the pdf output as per the destination setting
+        return $pdf->render(); 
     }
 }

@@ -19,7 +19,8 @@ $this->registerCss(".chudam { font-weight: bolder; }");
             <h3><?= Html::encode($this->title) ?></h3>
         </div>
         <div class="col-lg-6" style="float: right; text-align: right">
-            <?= Html::a(' ', ['update', 'id' => $model->id], ['class' => 'glyphicon glyphicon-pencil btn btn-primary']) ?>
+        <?= Html::a('<i class="fa fa-file-pdf-o btn btn-primary" style="font-size:20px; color: #fff; margin-top: 2px;"></i>', ['pdf', 'id' => $model->id],['target' => '_blank', 'style'=>'text-align: right;']) ?>    
+        <?= Html::a(' ', ['update', 'id' => $model->id], ['class' => 'glyphicon glyphicon-pencil btn btn-primary']) ?>
             <?php
             echo Html::a(' ', ['delete', 'id' => $model->id], [
                     'class' => 'glyphicon glyphicon-trash btn btn-danger',
